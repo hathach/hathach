@@ -19,9 +19,7 @@
 
 ### 📊 GitHub Stats
 
-<table align="center">
-  <tr>
-    <td><img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=hathach&theme=nord_dark" alt="GitHub Stats" /></td>
-    <td><img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=hathach&theme=nord_dark" alt="Profile Details" /></td>
-  </tr>
-</table>
+![GitHub Stats](https://github-profile-summary-cards.vercel.app/api/cards/stats?username=hathach&theme=nord_dark)
+![Most Commit Language](https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=hathach&theme=nord_dark)
+
+![Profile Details](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=hathach&theme=nord_dark)
