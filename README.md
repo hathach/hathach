@@ -1,8 +1,7 @@
 <h1 align="center">Hi there, I'm Hà Thạch 👋</h1>
 
 <p align="center">
-  <em>Embedded Systems Developer · USB Enthusiast · Open Source Maintainer</em><br>
-  <em>"Good programmer write good codes. Great programmer copy great codes."</em>
+  <em>Embedded Systems Engineer · Maintainer of TinyUSB · New Dad of Twins 👶👶</em>
 </p>
 
 <p align="center">
@@ -12,10 +11,10 @@
 
 ### 🔧 About Me
 
-- 🏠 Working from **Ho Chi Minh City, Vietnam**
-- 💼 Affiliated with **Adafruit Industries**
+- 🏠 Working from home in **Ho Chi Minh City, Vietnam**
+- 💼 Affiliated with **[Adafruit Industries](https://adafruit.com)**
 - ⚡ Creator & maintainer of **TinyUSB** — an open-source cross-platform USB stack for embedded systems
-- 🎯 Passionate about **USB protocols**, **microcontrollers**, and **memory-safe embedded software**
+- 👶👶 Juggling diapers, bottles, and USB descriptors
 
 ### 📊 GitHub Stats
 
