@@ -11,7 +11,7 @@
 
 ### 🔧 About Me
 
-- 🏠 Working from home in **Ho Chi Minh City, Vietnam**
+- 🏠 Working from home in **Vietnam**
 - 💼 Affiliated with **[Adafruit Industries](https://adafruit.com)**
 - ⚡ Creator & maintainer of **TinyUSB** — an open-source cross-platform USB stack for embedded systems
 - 👶👶 Juggling diapers, bottles, and USB descriptors
