@@ -1,0 +1,77 @@
+name: Sync Adafruit items to Project 4
+
+# Adds open issues/PRs to https://github.com/users/hathach/projects/4
+#   - Org-wide: anything in adafruit/* that involves me (author, assignee,
+#     mentioned, or commenter == "assigned, mentioned, or participate")
+#   - Plus every open issue/PR from a fixed set of "my" repos
+#
+# Requires repo secret PROJECTS_TOKEN: a classic PAT (owner: hathach) with
+# scopes  repo, read:org, project.  The default GITHUB_TOKEN cannot write to
+# user-level Projects v2, which is why a PAT is needed.
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'   # every 6 hours (UTC); GitHub may delay under load
+  workflow_dispatch: {}       # allow manual runs from the Actions tab
+
+permissions:
+  contents: read
+
+concurrency:
+  group: adafruit-project-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+      PROJECT: '4'
+      OWNER: hathach
+      NAMED_REPOS: >-
+        ArduinoCore-samd
+        Adafruit_nRF52_Arduino
+        Adafruit_nRF52_Bootloader
+        tinyuf2
+        Adafruit_TinyUSB_Arduino
+        Adafruit_SPIFlash
+    steps:
+      - name: Collect and add matching items
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp)"
+
+          echo "::group::Org-wide items involving $OWNER"
+          gh search issues --owner adafruit --involves "$OWNER" --state open \
+            --limit 1000 --json url -q '.[].url' | tee -a "$tmp" | wc -l
+          echo "::endgroup::"
+
+          echo "::group::Named repos (all open issues + PRs)"
+          for r in $NAMED_REPOS; do
+            gh issue list -R "adafruit/$r" --state open --limit 1000 --json url -q '.[].url' >> "$tmp" || true
+            gh pr    list -R "adafruit/$r" --state open --limit 1000 --json url -q '.[].url' >> "$tmp" || true
+          done
+          echo "::endgroup::"
+
+          sort -u "$tmp" -o "$tmp"
+          n="$(wc -l < "$tmp")"
+          echo "Unique open items to ensure-in-project: $n"
+
+          added=0; failed=0
+          while IFS= read -r url; do
+            [ -z "$url" ] && continue
+            if gh project item-add "$PROJECT" --owner "$OWNER" --url "$url" >/dev/null 2>&1; then
+              added=$((added+1))
+            else
+              failed=$((failed+1)); echo "  failed: $url"
+            fi
+          done < "$tmp"
+
+          echo "Ensured $added items in project (idempotent re-adds included); failures: $failed"
+          {
+            echo "### Adafruit → Project 4 sync"
+            echo ""
+            echo "- Unique open items: **$n**"
+            echo "- Ensured in project: **$added**"
+            echo "- Failures: **$failed**"
+          } >> "$GITHUB_STEP_SUMMARY"
