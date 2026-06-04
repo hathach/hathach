@@ -1,7 +1,7 @@
 name: Sponsor Triage
 
 # Periodically add open issues and PRs opened by sponsors (public and private) to the private "Sponsor Triage" project board
-# Requires a PAT in secret SPONSOR_TOKEN with scopes:
+# Requires a PAT in secret PROJECTS_TOKEN with scopes:
 #   - project       (write project items / fields)
 #   - read:org      (search org issues, check Adafruit membership)
 #   - read:user / sponsors (read own sponsorships incl. private)
@@ -22,7 +22,7 @@ jobs:
       - name: Sync sponsor issues to project board
         uses: actions/github-script@v8
         with:
-          github-token: ${{ secrets.SPONSOR_TOKEN }}
+          github-token: ${{ secrets.PROJECTS_TOKEN }}
           script: |
             const PROJECT_OWNER = 'hathach';
             const PROJECT_NUMBER = 3;
